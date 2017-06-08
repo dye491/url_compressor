@@ -18,7 +18,12 @@ class Main
 
     public function __construct()
     {
-        $this->urls = isset($_SESSION['urls']) ? $_SESSION['urls'] : [];
+        if (USE_COOKIE) {
+            $this->urls = isset($_COOKIE['urls']) ? unserialize($_COOKIE['urls']) : [];
+        }
+        if (empty($this->urls)) {
+            $this->urls = isset($_SESSION['urls']) ? $_SESSION['urls'] : [];
+        }
     }
 
     public function findByUrl($url)
@@ -34,6 +39,9 @@ class Main
     public function add($url, $hash)
     {
         $this->urls[$hash] = $url;
+        if (USE_COOKIE) {
+            setcookie('urls', serialize($this->urls), time() + COOKIE_LIFETIME);
+        }
         $_SESSION['urls'][$hash] = $url;
     }
 }

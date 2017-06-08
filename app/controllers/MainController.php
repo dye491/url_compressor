@@ -48,8 +48,8 @@ class MainController
             'error'     => $error
         ]);
 
-        $view = new View();
-        $view->render(APP . '/views/main/index.php', $this->vars);
+        $this->view = new View();
+        $this->view->render(APP . '/views/main/index.php', $this->vars);
     }
 
     public function actionView()

@@ -11,6 +11,8 @@ $query = ltrim($_SERVER['QUERY_STRING'], '/');
 define('WWW', __DIR__);
 define('ROOT', dirname(__DIR__));
 define('APP', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'app');
+define('USE_COOKIE', 1);
+define('COOKIE_LIFETIME', 3600 * 24 * 30);
 
 require_once ROOT . '/vendor/libs/functions.php';
 
