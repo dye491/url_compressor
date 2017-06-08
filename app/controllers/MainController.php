@@ -50,6 +50,11 @@ class MainController
         $view->render(APP . '/views/main/index.php', $this->vars);
     }
 
+    public function viewAction()
+    {
+
+    }
+
     public function set(array $vars)
     {
         $this->vars = $vars;
