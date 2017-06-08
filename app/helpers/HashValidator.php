@@ -18,6 +18,6 @@ class HashValidator
      */
     public static function validate($hash)
     {
-        return preg_match('#^[A-Za-z0-9_#@\-]+$#', $hash);
+        return preg_match("#^[A-Za-z0-9_\#\@\-]+$#", $hash);
     }
 }
