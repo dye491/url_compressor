@@ -7,19 +7,21 @@ $(document).ready()
 
     $("#btn-send").on("click", function () {
         console.log("button pressed");
-        var short_url = $("#source-url").val();
-        console.log(short_url);
+        var source_url = $("#source-url").val(),
+            redirect_url = $('#redirect_url').val();
+        console.log(source_url);
         $.ajax({
             url: "/",
             type: "POST",
             data: {
-                url: short_url
+                url: source_url,
+                redirect_url: redirect_url
             },
             dataType: "text",
             success: function (data) {
                 console.log(data);
                 $(".panel-body p a").remove();
-                $(".panel-body p").html('<a href="' + short_url + '" target="_blank">' + short_url + '</a>');
+                $(".panel-body p").html('<a href="' + data + '" target="_blank">' + data + '</a>');
             },
             error: function (data) {
                 console.log(data.responseText);
