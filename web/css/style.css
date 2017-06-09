@@ -1,0 +1,7 @@
+body {
+    margin: 10px;
+}
+.col-md-4 input {
+    display: block;
+    width: 100%
+}
