@@ -29,15 +29,19 @@
             <form class="form-inline col-md-12" action="" method="post">
                 <div class="row">
                     <label for="source-url" class="col-md-1 ">Source URL</label>
-                    <div class="col-md-9">
+                    <div class="col-md-4">
                         <input id="source-url" type="text" name="url" value="http://"
                                style="display: block;width: 100%">
                         <?php if ($vars['error']): ?>
                             <span style="color: red"><?= $vars['error'] ?></span>
                         <?php endif; ?>
                     </div>
+                    <label for="redirect_url" class="col-md-1">Redirect URL (optional)</label>
+                    <div class="col-md-4">
+                        <input type="text" id="redirect_url" name="redirect_url"
+                               placeholder="something like http://<?= $_SERVER['HTTP_HOST'] ?>/?h=bla-bla-bla" style="display: block;width: 100%">
+                    </div>
                     <div class="col-md-2">
-                        <!--                <button>Shorten this URL</button>-->
                         <input id="btn-send" type="button" value="Shorten this URL">
                     </div>
                 </div>
