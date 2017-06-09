@@ -19,36 +19,42 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+    <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<h2><?= $vars['title'] ?></h2>
-<div class="row">
-    <form class="form-inline col-md-12" action="" method="post">
+<div class="panel panel-default">
+    <div class="panel-heading"><?= $vars['title'] ?></div>
+    <div class="panel-body">
         <div class="row">
-            <label for="source-url" class="col-md-1 ">Source URL</label>
-            <div class="col-md-9">
-                <input id="source-url" type="text" name="url" value="http://" style="display: block;width: 100%">
-                <?php if ($vars['error']): ?>
-                    <span style="color: red"><?= $vars['error'] ?></span>
-                <?php endif; ?>
-            </div>
-            <div class="col-md-2">
-                <input type="submit" value="Shorten this URL">
-            </div>
+            <form class="form-inline col-md-12" action="" method="post">
+                <div class="row">
+                    <label for="source-url" class="col-md-1 ">Source URL</label>
+                    <div class="col-md-9">
+                        <input id="source-url" type="text" name="url" value="http://"
+                               style="display: block;width: 100%">
+                        <?php if ($vars['error']): ?>
+                            <span style="color: red"><?= $vars['error'] ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-md-2">
+                        <!--                <button>Shorten this URL</button>-->
+                        <input id="btn-send" type="button" value="Shorten this URL">
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 <div class="panel panel-default">
-    <?php if (isset($vars['short_url'])): ?>
-        <div class="panel-heading">Short URL</div>
-        <div class="panel-body">
-            <p>
-                <a href="<?= $vars['short_url'] ?>" target="_blank"><?= $vars['short_url'] ?></a>
-            </p>
-        </div>
-    <?php endif; ?>
+    <!--    --><?php //if (isset($vars['short_url'])): ?>
+    <div class="panel-heading">Short URL</div>
+    <div class="panel-body">
+        <p>
+            <a href="<?= $vars['short_url'] ?>" target="_blank"><?= $vars['short_url'] ?></a>
+        </p>
+    </div>
+    <!--    --><?php //endif; ?>
 </div>
+<script src="js/script.js"></script>
 </body>
 </html>
