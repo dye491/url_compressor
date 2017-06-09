@@ -19,10 +19,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="../../../web/css/style.css">
+
     <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div class="panel panel-default">
+<div class="panel panel-primary panel-form">
     <div class="panel-heading"><?= $vars['title'] ?></div>
     <div class="panel-body">
         <div class="row">
@@ -30,8 +32,7 @@
                 <div class="row">
                     <label for="source-url" class="col-md-1 ">Source URL</label>
                     <div class="col-md-4">
-                        <input id="source-url" type="text" name="url" value="http://"
-                               style="display: block;width: 100%">
+                        <input id="source-url" type="text" name="url" value="http://">
                         <?php if ($vars['error']): ?>
                             <span style="color: red"><?= $vars['error'] ?></span>
                         <?php endif; ?>
@@ -39,7 +40,7 @@
                     <label for="redirect_url" class="col-md-1">Redirect URL (optional)</label>
                     <div class="col-md-4">
                         <input type="text" id="redirect_url" name="redirect_url"
-                               placeholder="something like http://<?= $_SERVER['HTTP_HOST'] ?>/?h=bla-bla-bla" style="display: block;width: 100%">
+                               placeholder="something like http://<?= $_SERVER['HTTP_HOST'] ?>/?h=bla-bla-bla">
                     </div>
                     <div class="col-md-2">
                         <input id="btn-send" type="button" value="Shorten this URL">
@@ -49,7 +50,7 @@
         </div>
     </div>
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default panel-result">
     <!--    --><?php //if (isset($vars['short_url'])): ?>
     <div class="panel-heading">Short URL</div>
     <div class="panel-body">

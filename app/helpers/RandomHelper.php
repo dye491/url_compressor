@@ -16,7 +16,7 @@ class RandomHelper
         $seed = str_split(
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ' .
             'abcdefghijklmnopqrstuvwxyz' .
-            '0123456789_-#@'
+            '0123456789_-$@'
         );
         shuffle($seed);
         $rand = '';

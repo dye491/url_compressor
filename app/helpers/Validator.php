@@ -20,7 +20,7 @@ class Validator
     public static function validateUrl($url, $redirect_url = false, &$hash = null)
     {
         if ($redirect_url) {
-            $pattern = "#^http\:\/\/{$_SERVER['HTTP_HOST']}\/?\?h\=([A-za-z0-9_\#\@\-]+)$#i";
+            $pattern = "#^http\:\/\/{$_SERVER['HTTP_HOST']}\/?\?h\=([A-za-z0-9_\$\@\-]+)$#i";
 
             $result = preg_match($pattern, $url, $matches);
             if ($result) {
@@ -49,6 +49,6 @@ class Validator
      */
     public static function validateHash($hash)
     {
-        return preg_match("#^[A-Za-z0-9_\#\@\-]+$#", $hash);
+        return preg_match("#^[A-Za-z0-9_\$\@\-]+$#", $hash);
     }
 }
