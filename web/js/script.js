@@ -13,7 +13,7 @@ $(document).ready()
             url: "/",
             type: "POST",
             data: {
-                url: short_url,
+                url: short_url
             },
             dataType: "text",
             success: function (data) {

@@ -38,9 +38,13 @@ class MainController
                     $model->add($_POST['url'], $hash);
                 }
                 $short_url = 'http://' . $_SERVER['HTTP_HOST'] . '/?h=' . $hash;
+                echo $short_url;
             } else {
+                http_response_code(400);
                 $error = 'Недействительный URL';
+                echo $error;
             }
+            return;
         }
         $this->set([
             'title'     => $title,
