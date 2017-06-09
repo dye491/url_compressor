@@ -8,10 +8,8 @@
 
 namespace app\controllers;
 
-
-use app\helpers\HashValidator;
 use app\helpers\RandomHelper;
-use app\helpers\UrlValidator;
+use app\helpers\Validator;
 use app\models\Main;
 use app\views\View;
 
@@ -31,7 +29,22 @@ class MainController
 
         $model = new Main();
         if (!empty($_POST['url'])) {
-            if (UrlValidator::validateUrl($_POST['url'])) {
+            if (Validator::validateUrl($_POST['url'])) {
+                if (!empty($_POST['redirect_url'])) {
+                    if (Validator::validateUrl($_POST['redirect_url'], true, $hash)) {
+                        $short_url = $_POST['redirect_url'];
+                        if ($key = $model->findByUrl($_POST['url'])) {
+                            unset($model->urls[$key]);
+                        }
+                        $model->add($_POST['url'], $hash);
+                        echo $short_url;
+                    } else {
+                        http_response_code(400);
+                        $error = 'Недействительный redirect URL';
+                        echo $error;
+                    }
+                    return;
+                }
                 $hash = $model->findByUrl($_POST['url']);
                 if (!$hash) {
                     $hash = RandomHelper::generateRandomString(self::HASH_LEN);
@@ -59,7 +72,7 @@ class MainController
     public function actionView()
     {
         if (isset($_GET['h'])) {
-            if (HashValidator::validate($_GET['h'])) {
+            if (Validator::validateHash($_GET['h'])) {
                 $model = new Main();
                 if ($url = $model->findByHash($_GET['h'])) {
                     header("Location: $url");
