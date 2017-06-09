@@ -43,7 +43,7 @@
                                placeholder="something like http://<?= $_SERVER['HTTP_HOST'] ?>/?h=bla-bla-bla">
                     </div>
                     <div class="col-md-2">
-                        <input id="btn-send" type="button" value="Shorten this URL">
+                        <input id="btn-send" type="button" value="Compress this URL">
                     </div>
                 </div>
             </form>
@@ -52,7 +52,7 @@
 </div>
 <div class="panel panel-default panel-result">
     <!--    --><?php //if (isset($vars['short_url'])): ?>
-    <div class="panel-heading">Short URL</div>
+    <div class="panel-heading">Compressed URL</div>
     <div class="panel-body">
         <p>
             <a href="<?= $vars['short_url'] ?>" target="_blank"><?= $vars['short_url'] ?></a>
