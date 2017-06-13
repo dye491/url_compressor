@@ -26,4 +26,11 @@ class RandomHelper
 
         return $rand;
     }
+
+    public static function generateCsrfToken()
+    {
+        $token = self::generateRandomString(25);
+        $_SESSION['csrf'] = $token;
+        return $token;
+    }
 }

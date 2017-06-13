@@ -30,6 +30,7 @@
         <div class="row">
             <form class="form-inline col-md-12" action="" method="post">
                 <div class="row">
+                    <input type="hidden" id="csrf" name="csrf_token" value="<?= $vars['csrf_token'] ?>">
                     <label for="source-url" class="col-md-1 ">Source URL</label>
                     <div class="col-md-4">
                         <input id="source-url" type="text" name="url" value="http://">

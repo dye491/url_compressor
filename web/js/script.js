@@ -8,14 +8,16 @@ $(document).ready()
     $("#btn-send").on("click", function () {
         // console.log("button pressed");
         var source_url = $("#source-url").val(),
-            redirect_url = $('#redirect_url').val();
+            redirect_url = $('#redirect_url').val(),
+            csrf_token = $('#csrf').val();
         // console.log(source_url);
         $.ajax({
             url: "/",
             type: "POST",
             data: {
                 url: source_url,
-                redirect_url: redirect_url
+                redirect_url: redirect_url,
+                csrf_token: csrf_token
             },
             dataType: "text",
             success: function (data) {
