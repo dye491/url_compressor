@@ -22,22 +22,29 @@ class MainController
 
     public function actionIndex()
     {
-        $title = 'URL Shorter';
+        $title = 'URL Compressor';
         $hash = null;
-        $short_url = null;
+        $redirect_url = null;
         $error = '';
+        $csrf_token = isset($_SESSION['csrf']) ? $_SESSION['csrf'] : RandomHelper::generateCsrfToken();
 
         $model = new Main();
         if (!empty($_POST['url'])) {
-            if (Validator::validateUrl($_POST['url'])) {
+            $url = htmlspecialchars($_POST['url']);
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] != $csrf_token) {
+                $error = 'Неверный проверочный код';
+                echo $error;
+                return;
+            }
+            if (Validator::validateUrl($url)) {
                 if (!empty($_POST['redirect_url'])) {
-                    if (Validator::validateUrl($_POST['redirect_url'], true, $hash)) {
-                        $short_url = $_POST['redirect_url'];
-                        if ($key = $model->findByUrl($_POST['url'])) {
+                    $redirect_url = htmlspecialchars($_POST['redirect_url']);
+                    if (Validator::validateRedirectUrl($redirect_url, $hash)) {
+                        if ($key = $model->findByUrl($url)) {
                             unset($model->urls[$key]);
                         }
-                        $model->add($_POST['url'], $hash);
-                        echo $short_url;
+                        $model->add($url, $hash);
+                        echo $redirect_url;
                     } else {
                         http_response_code(400);
                         $error = 'Недействительный redirect URL';
@@ -45,13 +52,13 @@ class MainController
                     }
                     return;
                 }
-                $hash = $model->findByUrl($_POST['url']);
+                $hash = $model->findByUrl($url);
                 if (!$hash) {
                     $hash = RandomHelper::generateRandomString(self::HASH_LEN);
-                    $model->add($_POST['url'], $hash);
+                    $model->add($url, $hash);
                 }
-                $short_url = 'http://' . $_SERVER['HTTP_HOST'] . '/?h=' . $hash;
-                echo $short_url;
+                $redirect_url = 'http://' . $_SERVER['HTTP_HOST'] . '/?h=' . $hash;
+                echo $redirect_url;
             } else {
                 http_response_code(400);
                 $error = 'Недействительный URL';
@@ -60,9 +67,10 @@ class MainController
             return;
         }
         $this->set([
-            'title'     => $title,
-            'short_url' => $short_url,
-            'error'     => $error
+            'title'        => $title,
+            'redirect_url' => $redirect_url,
+            'error'        => $error,
+            'csrf_token'   => $csrf_token,
         ]);
 
         $this->view = new View();
@@ -72,9 +80,10 @@ class MainController
     public function actionView()
     {
         if (isset($_GET['h'])) {
-            if (Validator::validateHash($_GET['h'])) {
+            $h = htmlspecialchars($_GET['h']);
+            if (Validator::validateHash($h)) {
                 $model = new Main();
-                if ($url = $model->findByHash($_GET['h'])) {
+                if ($url = $model->findByHash($h)) {
                     header("Location: $url");
                 } else {
                     http_response_code(404);
