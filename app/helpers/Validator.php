@@ -32,7 +32,7 @@ class Validator
 
     /**
      * Checks if redirect URL matches certain pattern
-     * @param $url input redirect URL
+     * @param string $url input redirect URL
      * @param null $hash this parameter returns hash
      * @return int
      */
