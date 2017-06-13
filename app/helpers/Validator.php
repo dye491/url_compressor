@@ -14,32 +14,38 @@ class Validator
     /**
      * Checks that $url is real URL, e. g. request to it returns 200 OK
      * @param string $url
-     * @param bool $redirect_url
      * @return bool
      */
-    public static function validateUrl($url, $redirect_url = false, &$hash = null)
+    public static function validateUrl($url)
     {
-        if ($redirect_url) {
-            $pattern = "#^http\:\/\/{$_SERVER['HTTP_HOST']}\/?\?h\=([A-za-z0-9_\$\@\-]+)$#i";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
 
-            $result = preg_match($pattern, $url, $matches);
-            if ($result) {
-                $hash = $matches[1];
-            }
+        if (curl_exec($ch) === false) return false;
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
-            return $result;
-        } else {
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
+        return ($code == 200);
+    }
 
-            if (curl_exec($ch) === false) return false;
-            $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
+    /**
+     * Checks if redirect URL matches certain pattern
+     * @param $url input redirect URL
+     * @param null $hash this parameter returns hash
+     * @return int
+     */
+    public static function validateRedirectUrl($url, &$hash = null)
+    {
+        $pattern = "#^http\:\/\/{$_SERVER['HTTP_HOST']}\/?\?h\=([A-za-z0-9_\$\@\-]+)$#i";
 
-            return ($code == 200);
+        $result = preg_match($pattern, $url, $matches);
+        if ($result) {
+            $hash = $matches[1];
         }
+
+        return $result;
     }
 
     /**
