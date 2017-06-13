@@ -39,7 +39,7 @@ class MainController
             if (Validator::validateUrl($url)) {
                 if (!empty($_POST['redirect_url'])) {
                     $redirect_url = htmlspecialchars($_POST['redirect_url']);
-                    if (Validator::validateUrl($redirect_url, true, $hash)) {
+                    if (Validator::validateRedirectUrl($redirect_url, $hash)) {
                         if ($key = $model->findByUrl($url)) {
                             unset($model->urls[$key]);
                         }
