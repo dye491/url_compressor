@@ -22,4 +22,4 @@
 
 ### Работающий сайт
 
-[http://http://smartgeek-ft.esy.es/](URL compressor)
+[URL compressor]()http://http://smartgeek-ft.esy.es/)
