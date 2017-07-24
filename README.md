@@ -1,4 +1,4 @@
-# URL Shorter
+# URL Compressor
 
 ## Простой сервис сокращения ссылок
 
